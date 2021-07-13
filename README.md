@@ -47,7 +47,7 @@ cd llvm-project && git clone -b master https://github.com/microsoft/llvm-mctoll.
 3. The commit recorded in `llvm-project-git-commit-to-use.txt` is the tested version of LLVM to build against. If you use a different version LLVM you might encounter build errors.
 
 ```
-git checkout <hash from llvm-project-git-commit-to-use.txt>
+git checkout -b <hash from llvm-project-git-commit-to-use.txt>
 ```
 
 4. Configure LLVM by enabling Clang and ld. See [LLVM CMake Variables](https://llvm.org/docs/CMake.html#frequently-used-cmake-variables) for more information on LLVM's cmake options.
