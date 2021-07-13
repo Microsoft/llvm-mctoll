@@ -944,6 +944,16 @@ StoreInst *X86MachineInstructionRaiser::promotePhysregToStackSlot(
       CInst->insertBefore(TermInst);
     ReachingValue = CInst;
   }
+  if (StackLocTy != Alloca->getType()->getPointerElementType()) {
+    CastInst *CInst = CastInst::Create(
+        CastInst::getCastOpcode(Alloca, false, StackLocTy->getPointerTo(), false),
+        Alloca, StackLocTy->getPointerTo());
+    if (TermInst == nullptr)
+      ReachingBB->getInstList().push_back(CInst);
+    else
+      CInst->insertBefore(TermInst);
+    Alloca = CInst;
+  }
   StInst = new StoreInst(ReachingValue, Alloca, false, Align());
   if (TermInst == nullptr)
     ReachingBB->getInstList().push_back(StInst);
